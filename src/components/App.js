@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import "../styles/App.css";
 
 class App extends Component {
@@ -12,8 +12,10 @@ class App extends Component {
         hour12: true
       })
     };
+    this.update = this.update.bind(this);
   }
-  tick() {
+
+  update() {
     this.setState({
       time: new Date().toLocaleTimeString("en-US", {
         hour: "numeric",
@@ -25,7 +27,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.intervalID = setInterval(() => this.tick(), 1000);
+    this.intervalID = setInterval(() => this.update(), 1000);
   }
   componentWillUnmount() {
     clearInterval(this.intervalID);
@@ -34,7 +36,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="Clock">
-          <h3 id="time">{`${this.state.time}`}</h3>
+          <h3 id="time">{this.state.time}</h3>
         </div>
       </div>
     );
